@@ -4,7 +4,7 @@ Title: Aloca Comarcas A Varas
 Version: 0.1.0
 Author: Brazillian Association of Jurimetrics
 Maintainer: Fernando Corrêa <fcorrea@abjur.org.br>
-Description: Modelo para escolha da jurisdição das comarcas criado por Rafael e
+Description: Modelo para escolha da jurisdicao das comarcas criado por Rafael e
     Julio Stern
 License: What license is it under?
 LazyData: TRUE
