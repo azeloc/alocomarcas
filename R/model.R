@@ -1,10 +1,3 @@
-#' Build the restriction matrix
-#'
-#' @param n An integer.
-#' @return A (2n+1 X n^2 + n) matrix.
-#' @examples
-#' matriz(3)
-#' matriz(2)
 matriz <- function(n){
   mat = matrix(0, nrow = 2*n+1, ncol = n^2+n)
 
