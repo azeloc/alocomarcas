@@ -1,3 +1,5 @@
+#' @import magrittr
+
 #' @export
 matriz <- function(n){
   mat = matrix(0, nrow = 2*n+1, ncol = n^2+n)
