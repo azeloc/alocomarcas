@@ -1,3 +1,11 @@
+#' Build the restriction matrix
+#'
+#' @param n An integer.
+#' @return A (2n+1 X n^2 + n) matrix.
+#' @examples
+#' matriz(3)
+#' matriz(2)
+
 matriz <- function(n){
   mat = matrix(0, nrow = 2*n+1, ncol = n^2+n)
 
@@ -11,7 +19,7 @@ matriz <- function(n){
     for(j in (n+1):(2*n)){
       mat[i,n*(j-n-1)+i-n] = 1
     }
-    mat[i,n^2+i-n] = -315
+    mat[i,n^2+i-n] = -n
   }
 
 
