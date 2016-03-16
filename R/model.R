@@ -35,11 +35,11 @@ objective <- function(d){
   dist_comarcas <- d[1:nrow(d), 3:(nrow(d)+2)] %>%
     as.matrix %>%
     igraph::graph.adjacency(mode="undirected") %>%
-    igraph::distances %>%
-    as.vector
+    igraph::distances() %>%
+    as.vector()
 
   perc_processos <- round(unlist(d[,2]/sum(d[,2])), 4) %>%
-    sapply(rep, times = n)
+    sapply(rep, times = nrow(d))
 
   obj = c(perc_processos*dist_comarcas, rep(0, nrow(d)))
   return(obj)
@@ -61,10 +61,11 @@ aloca <- function(d,numvaras){
   solution <- solucao %>%
     '$'('solution') %>%
     matrix(nrow = n_comarcas, ncol = n_comarcas, byrow = T) %>%
-    reshape2::melt %>%
+    reshape2::melt() %>%
     dplyr::filter(value > 0) %>%
     dplyr::transmute(comarca = c_metro_sp[Var1],
-                     vara = c_metro_sp[Var2])
+                     vara = c_metro_sp[Var2]) %>%
+    dplyr::as_data_frame()
 
   list('alocacao' = solution, 'obj' = res)
 }
