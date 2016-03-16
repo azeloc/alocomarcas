@@ -20,10 +20,13 @@ matriz <- function(n){
   return(mat)
 }
 
+#' @export
 i_directions <- function(n) {c(rep('==', times = n),rep("<=",times = n),'==')}
 
+#' @export
 i_rhs <- function(n, numvaras){rhs <- c(rep(1,n),rep(0,n),numvaras)}
 
+#' @export
 objective <- function(d){
   dist_comarcas <- d[1:nrow(d), 3:(nrow(d)+2)] %>%
     as.matrix %>%
@@ -38,6 +41,7 @@ objective <- function(d){
   return(obj)
 }
 
+#' @export
 aloca <- function(d,numvaras){
 
   n_comarcas <- nrow(d)
