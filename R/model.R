@@ -1,5 +1,3 @@
-#' @import magrittr
-
 #' @export
 matriz <- function(n){
   mat = matrix(0, nrow = 2*n+1, ncol = n^2+n)
@@ -29,17 +27,31 @@ i_directions <- function(n) {c(rep('==', times = n),rep("<=",times = n),'==')}
 i_rhs <- function(n, numvaras){rhs <- c(rep(1,n),rep(0,n),numvaras)}
 
 #' @export
+dist_comarcas <- function(d){
+  d %>%
+  dplyr::filter(stringr::str_detect(comarca,'coma_')) %>%
+  dplyr::select(starts_with('coma_')) %>%
+  as.matrix %>%
+  igraph::graph.adjacency(mode="undirected") %>%
+  igraph::distances() %>%
+  as.vector()
+}
+
+#' @export
+
+perc_processos <- function(x){
+  round(unlist(d[,2]/sum(d[,2])), 4) %>%
+  sapply(rep, times = nrow(d))
+}
+
+#' @export
 objective <- function(d){
-  dist_comarcas <- d[1:nrow(d), 3:(nrow(d)+2)] %>%
-    as.matrix %>%
-    igraph::graph.adjacency(mode="undirected") %>%
-    igraph::distances() %>%
-    as.vector()
 
-  perc_processos <- round(unlist(d[,2]/sum(d[,2])), 4) %>%
-    sapply(rep, times = nrow(d))
+  d_comarcas <- dist_comarcas(d)
 
-  obj = c(perc_processos*dist_comarcas, rep(0, nrow(d)))
+  p_processos <- perc_processos(d)
+
+  obj = c(p_processos*d_comarcas, rep(0, nrow(d)))
   return(obj)
 }
 
