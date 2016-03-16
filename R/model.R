@@ -48,6 +48,7 @@ objective <- function(d){
 aloca <- function(d,numvaras){
 
   n_comarcas <- nrow(d)
+  comarcas <- stringr::str_replace(d$comarca,'coma_','')
 
   obj <- objective(d)
   mat = matriz(n_comarcas)
@@ -63,8 +64,8 @@ aloca <- function(d,numvaras){
     matrix(nrow = n_comarcas, ncol = n_comarcas, byrow = T) %>%
     reshape2::melt() %>%
     dplyr::filter(value > 0) %>%
-    dplyr::transmute(comarca = c_metro_sp[Var1],
-                     vara = c_metro_sp[Var2]) %>%
+    dplyr::transmute(comarca = comarcas[Var1],
+                     vara = comarcas[Var2]) %>%
     dplyr::as_data_frame()
 
   list('alocacao' = solution, 'obj' = res)
